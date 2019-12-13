@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Booking"></activity>
+        <activity android:name=".Ewallet"></activity>
+        <activity android:name=".Booking" />
         <activity android:name=".Report" />
         <activity android:name=".FragmentLF3" />
         <activity android:name=".FragmentLF2" />

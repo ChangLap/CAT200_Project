@@ -58,7 +58,7 @@ public class Register extends AppCompatActivity {
                 detail.setEmail(etEmail.getText().toString().trim());
                 detail.setPassword(etPassword.getText().toString().trim());
                 detail.setCarPlate(etCarPlate.getText().toString().trim());
-
+                detail.setEwallet(0);
                 //auto increment of folder's name
                 databaseReference.child("user" + folder).setValue(detail);
 

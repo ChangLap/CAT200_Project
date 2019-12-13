@@ -662,7 +662,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="125dp"
                 android:rotation="0"
                 android:text="B"
                 android:textSize="18sp"
@@ -680,7 +680,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="165dp"
+                android:layout_marginTop="160dp"
                 android:rotation="0"
                 android:text="C"
                 android:textSize="18sp"
@@ -689,7 +689,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/background"
                 app:layout_constraintTop_toTopOf="@+id/background"
-                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_bias="0.151"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -698,16 +698,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="220dp"
+                android:layout_marginTop="215dp"
                 android:rotation="0"
                 android:text="D"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/background"
                 app:layout_constraintTop_toTopOf="@+id/background"
-                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_bias="0.294"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -722,28 +722,10 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/background"
                 app:layout_constraintTop_toTopOf="@+id/background"
-                app:layout_constraintVertical_bias="0"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="330dp"
-                android:rotation="0"
-                android:text="F"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/background"
-                app:layout_constraintTop_toTopOf="@+id/background"
-                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_bias="0.613"
                 tools:ignore="HardcodedText" />
 
             <TextView

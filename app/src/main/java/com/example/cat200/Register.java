@@ -43,6 +43,7 @@ public class Register extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                     folder = (dataSnapshot.getChildrenCount());
+
             }
 
             @Override
@@ -57,9 +58,6 @@ public class Register extends AppCompatActivity {
                 detail.setEmail(etEmail.getText().toString().trim());
                 detail.setPassword(etPassword.getText().toString().trim());
                 detail.setCarPlate(etCarPlate.getText().toString().trim());
-
-                //all values in login class will be pushed into Firebase's Database
-                //databaseReference.child("").push().setValue(login);
 
                 //auto increment of folder's name
                 databaseReference.child("user" + folder).setValue(detail);

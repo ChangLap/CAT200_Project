@@ -10,8 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.cat200.FragmentGF;
 import com.example.cat200.FragmentLF1;
-import com.example.cat200.FragmentLF2;
-import com.example.cat200.FragmentLF3;
 import com.example.cat200.R;
 
 /**
@@ -38,12 +36,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 FragmentLF1 frag2 = new FragmentLF1();
                 return frag2;
-            case 2:
-                FragmentLF2 frag3 = new FragmentLF2();
-                return frag3;
-            case 3:
-                FragmentLF3 frag4 = new FragmentLF3();
-                return frag4;
             default:
                 return null;
         }
@@ -57,10 +49,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "GF";
             case 1:
                 return "LG1";
-            case 2:
-                return "LG2";
-            case 3:
-                return "LG3";
         }
         return null;
     }
@@ -68,6 +56,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 4 total pages.
-        return 4;
+        return 2;
     }
 }

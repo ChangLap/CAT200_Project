@@ -7,7 +7,7 @@
     tools:context=".Booking">
 
     <TextView
-        android:id="@+id/twParking"
+        android:id="@+id/tvParking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.318" />
 
     <TextView
-        android:id="@+id/twNotice"
+        android:id="@+id/tvNotice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,5 +70,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.566" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.816" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

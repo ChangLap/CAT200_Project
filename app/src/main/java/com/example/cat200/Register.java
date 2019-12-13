@@ -37,6 +37,7 @@ public class Register extends AppCompatActivity {
         //content of child refer to the tree
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Login Details");
 
+
         //auto increment of folder name
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,6 +52,7 @@ public class Register extends AppCompatActivity {
 
             }
         });
+
 
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override

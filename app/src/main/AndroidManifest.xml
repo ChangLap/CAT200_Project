@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Report"></activity>
+        <activity android:name=".Booking"></activity>
+        <activity android:name=".Report" />
         <activity android:name=".FragmentLF3" />
         <activity android:name=".FragmentLF2" />
         <activity android:name=".FragmentLF1" />
         <activity android:name=".FragmentGF" />
         <activity
-            android:name=".Booking"
+            android:name=".Mapping"
             android:label="@string/title_activity_booking"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".mainMenu" />

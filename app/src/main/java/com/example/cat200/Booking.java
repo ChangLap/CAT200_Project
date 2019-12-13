@@ -1,39 +1,91 @@
 package com.example.cat200;
 
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
-import com.example.cat200.ui.main.SectionsPagerAdapter;
+import java.util.Calendar;
 
 public class Booking extends AppCompatActivity {
+
+
+//    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//            .setAction("Action", null).show();
+
+    EditText edit_Date, edit_Start, edit_End;
+    TextView view_Notice, view_Parking;
+
+    TimePickerDialog timePickerDialog;
+    Calendar calendar;
+    int currentHour;
+    int currentMinute;
+    String amPm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        edit_Start = (EditText) findViewById(R.id.etStart);
+        edit_Start.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if (hourOfDay < 12)
+                            amPm = "AM";
+                        else
+                            amPm = "PM";
+
+                        edit_Start.setText(String.format("%02d:%02d", hourOfDay, minute) + amPm);
+//                    edit_End.setText(hourOfDay + ":" + minute + amPm);
+                    }
+
+
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
             }
         });
+
+        edit_End = (EditText) findViewById(R.id.etEnd);
+        edit_End.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if (hourOfDay < 12)
+                            amPm = "AM";
+                        else
+                            amPm = "PM";
+
+                        edit_End.setText(String.format("%02d%02d", hourOfDay, minute));
+//                    edit_End.setText(hourOfDay + ":" + minute + amPm);
+                    }
+
+
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
+            }
+        });
+
     }
 }

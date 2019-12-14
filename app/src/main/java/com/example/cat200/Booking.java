@@ -57,7 +57,13 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     int endHour;
     int endMinute;
     String amPm;
+<<<<<<< HEAD
     Timer timer;
+=======
+    long folder = 0;
+    int current;
+    String carPlate;
+>>>>>>> 8a98ced36f9c89560db5d14dc89555af322d736f
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

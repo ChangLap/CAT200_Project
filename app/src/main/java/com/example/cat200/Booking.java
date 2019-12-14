@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Booking extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -45,12 +48,16 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     int random;
     String parking;
     long folder = 0;
+    int charge = 0;
 
     TimePickerDialog timePickerDialog;
     Calendar calendar;
-    int currentHour;
-    int currentMinute;
+    int startHour;
+    int startMinute;
+    int endHour;
+    int endMinute;
     String amPm;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         view_Notice = (TextView) findViewById(R.id.tvNotice);
         view_Parking = (TextView) findViewById(R.id.tvParking);
 
+
         edit_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +84,8 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                startHour = calendar.get(Calendar.HOUR_OF_DAY);
+                startMinute = calendar.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -92,7 +100,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                     }
 
 
-                }, currentHour, currentMinute, false);
+                }, startHour, startMinute, false);
 
                 timePickerDialog.show();
             }
@@ -103,8 +111,8 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                endHour = calendar.get(Calendar.HOUR_OF_DAY);
+                endMinute = calendar.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -119,7 +127,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                     }
 
 
-                }, currentHour, currentMinute, false);
+                }, endHour, endMinute, false);
 
                 timePickerDialog.show();
             }
@@ -143,19 +151,31 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         button_Book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int startTime = startHour*60 + startMinute;
+                int endTime = endHour*60 + endMinute;
+                int duration = endTime - startTime;
+                int i;
+                for (i = 1; duration > i*60; i++)
+                    charge = charge +2;
+                Toast.makeText(Booking.this, ""+startTime+" "+endTime+" "+duration, Toast.LENGTH_LONG).show();
                 bookingHistory.setCarPlate(carPlate);
                 bookingHistory.setDate(edit_Date.getText().toString().trim());
                 bookingHistory.setStartTime(edit_Start.getText().toString().trim());
                 bookingHistory.setEndTime(edit_End.getText().toString().trim());
                 bookingHistory.setSlot(parking);
-                bookingHistory.setCharge(30);
+                bookingHistory.setCharge(charge);
 
                 view_Notice.setText("Your current parking slot is ");
                 view_Parking.setTextSize(20);
                 view_Parking.setText(parking);
+
                 userReference.child(""+folder).setValue(bookingHistory);
 
                 Toast.makeText(Booking.this, "Data pushed.", Toast.LENGTH_LONG).show();
+
+                mainScene();
+
 
             }
         });
@@ -227,5 +247,18 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                 }
             });
 
+        }
+
+        //delay change scene
+        public void mainScene (){
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent (Booking.this, mainMenu.class);
+                    startActivity(intent);
+                    finish();
+                }
+            },3000);
         }
 }

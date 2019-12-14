@@ -3,9 +3,8 @@ package com.example.cat200;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,49 +16,59 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Payment extends AppCompatActivity {
-    TextView amountdue;
-    Button buttonPaynow;
-    double totalamountdue=3.5;
-    double balance;
-    String currentuser;
-    DatabaseReference databaseReference;
-    userDetail take=new userDetail();
+
+//    TextView amountdue;
+//    Button buttonPaynow;
+//    double totalamountdue = 3.5;
+//    double balance;
+
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference rootReference = firebaseDatabase.getReference();
+    DatabaseReference currentReference;
+    DatabaseReference walletReference;
+    String sBalance;
+    int current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        amountdue = (TextView) findViewById(R.id.tvAmountDue);
-        String s = String.valueOf(totalamountdue);
-        amountdue.setText("RM " + s);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("current");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                currentuser = dataSnapshot.getValue().toString();
-                Toast.makeText(Payment.this, "current: "+currentuser, Toast.LENGTH_LONG).show();
-            }
+//        amountdue = (TextView) findViewById(R.id.tvAmountDue);
+//        String s = String.valueOf(totalamountdue);
+//
+//        amountdue.setText("RM " + s);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        Toast.makeText(Payment.this, "Line: " + current, Toast.LENGTH_LONG).show();
+//        Toast.makeText(Payment.this, "Balance" + sBalance, Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     protected void onStart () {
         super.onStart();
-        DatabaseReference walletReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user"+currentuser);
-        walletReference.addValueEventListener(new ValueEventListener() {
+
+        currentReference = rootReference.child("current");
+        currentReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                current = Integer.parseInt(dataSnapshot.getValue().toString());
 
-                String sBalance = dataSnapshot.child("ewallet").getValue().toString();
-//                balance = Double.valueOf(sBalance);
-                Toast.makeText(Payment.this, "balance is"+sBalance, Toast.LENGTH_LONG).show();
+
+                walletReference = rootReference.child("Login Details").child("user" + current).child("ewallet");
+                walletReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        sBalance = dataSnapshot.getValue().toString();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -67,37 +76,41 @@ public class Payment extends AppCompatActivity {
 
             }
         });
-        buttonPaynow = findViewById(R.id.bPay);
-        buttonPaynow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (balance>totalamountdue) {
-                    balance=balance-totalamountdue;
-                    final DatabaseReference updatewallet = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user"+currentuser);
-                    updatewallet.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            balance = (double) dataSnapshot.getValue();
-                            updatewallet.setValue(balance);
 
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
-//                    take.setEwallet(balance);
+
+//        buttonPaynow = findViewById(R.id.bPay);
+//        buttonPaynow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (balance>totalamountdue) {
+//                    balance=balance-totalamountdue;
+//                    final DatabaseReference updatewallet = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user"+currentuser);
+//                    updatewallet.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            balance = (double) dataSnapshot.getValue();
+//                            updatewallet.setValue(balance);
 //
-//                    .child("user" + currentuser).setValue(take);
-
-                    Intent success = new Intent(Payment.this, PaymentSuccess.class);
-                    startActivity(success);
-                } else {
-                    Intent fail = new Intent(Payment.this, PaymentFail.class);
-                    startActivity(fail);
-                }
-            }
-        });
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+////                    take.setEwallet(balance);
+////
+////                    .child("user" + currentuser).setValue(take);
+//
+//                    Intent success = new Intent(Payment.this, PaymentSuccess.class);
+//                    startActivity(success);
+//                } else {
+//                    Intent fail = new Intent(Payment.this, PaymentFail.class);
+//                    startActivity(fail);
+//                }
+//            }
+//        });
     }
 }

@@ -181,88 +181,89 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         });
     }
 
-        //shows the dialog of date picking
-        private void showDatePickerDialog () {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    this,
-                    this,
-                    Calendar.getInstance().get(Calendar.YEAR),
-                    Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-            );
-            datePickerDialog.show();
-        }
+    //shows the dialog of date picking
+    private void showDatePickerDialog () {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
 
-        //set date into editText field
-        @Override
-        public void onDateSet (DatePicker view,int year, int month, int dayOfMonth){
-            String date = dayOfMonth + "/" + month + "/" + year;
-            edit_Date.setText(date);
-        }
+    //set date into editText field
+    @Override
+    public void onDateSet (DatePicker view,int year, int month, int dayOfMonth){
+        String date = dayOfMonth + "/" + month + "/" + year;
+        edit_Date.setText(date);
+    }
 
-        @Override
-        protected void onStart () {
-            super.onStart();
+    @Override
+    protected void onStart () {
+        super.onStart();
 
-            currentReference = rootReference.child("current");
-            currentReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    current = Integer.parseInt(dataSnapshot.getValue().toString());
-                    Toast.makeText(Booking.this, "Write no " + current, Toast.LENGTH_SHORT).show();
-                }
+        currentReference = rootReference.child("current");
+        currentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                current = Integer.parseInt(dataSnapshot.getValue().toString());
+                Toast.makeText(Booking.this, "Write no " + current, Toast.LENGTH_SHORT).show();
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                plateReference = rootReference.child("Login Details").child("user" + current).child("carPlate");
+                plateReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        carPlate = dataSnapshot.getValue().toString();
+                        Toast.makeText(Booking.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
+                    }
 
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            plateReference = rootReference.child("Login Details").child("user" + current).child("carPlate");
-            plateReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    carPlate = dataSnapshot.getValue().toString();
-                    Toast.makeText(Booking.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
-                }
+                    }
+                });
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-
-            random = new Random().nextInt(58) + 1;
-            parkingReference = rootReference.child("Parking Details").child("slot" + random);
-            parkingReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    parking = dataSnapshot.getValue().toString();
-                    Toast.makeText(Booking.this, "Slot no " + parking, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            String string_carplate=String.valueOf(carPlate);
-            bookingHistory.setCarPlate(string_carplate);
+            }
+        });
 
 
-        }
+        random = new Random().nextInt(58) + 1;
+        parkingReference = rootReference.child("Parking Details").child("slot" + random);
+        parkingReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                parking = dataSnapshot.getValue().toString();
+                Toast.makeText(Booking.this, "Slot no " + parking, Toast.LENGTH_SHORT).show();
+            }
 
-        //delay change scene
-        public void mainScene (){
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent (Booking.this, mainMenu.class);
-                    startActivity(intent);
-                    finish();
-                }
-            },3000);
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        String string_carplate=String.valueOf(carPlate);
+        bookingHistory.setCarPlate(string_carplate);
+
+
+    }
+
+    //delay change scene
+    public void mainScene (){
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent (Booking.this, mainMenu.class);
+                startActivity(intent);
+                finish();
+            }
+        },3000);
+    }
 }

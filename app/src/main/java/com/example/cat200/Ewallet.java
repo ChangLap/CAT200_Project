@@ -11,7 +11,6 @@ import android.widget.ImageView;
 public class Ewallet extends AppCompatActivity {
 
     ImageView image_ewallet;
-    ImageView image_payment;
     ImageView image_topup;
 
     @Override
@@ -19,7 +18,8 @@ public class Ewallet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ewallet);
 
-        image_payment = (ImageView) findViewById(R.id.ivPayment);
+        ImageView image_payment = (ImageView) findViewById(R.id.ivPayment);
+
         image_payment.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

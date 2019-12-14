@@ -97,14 +97,14 @@ public class Login extends AppCompatActivity {
 
     public void mainScene() {
         Intent change = new Intent(Login.this, mainMenu.class);
-        finish();
         startActivity(change);
+        finish();
     }
 
     public void registerScene() {
         Intent change = new Intent(Login.this, Register.class);
-        finish();
         startActivity(change);
+        finish();
     }
 
 }

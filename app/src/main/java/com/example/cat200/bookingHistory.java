@@ -2,6 +2,7 @@ package com.example.cat200;
 
 public class bookingHistory {
     private String carPlate, date, startTime, endTime, slot;
+    private boolean flag;
     private float charge;
 
     public bookingHistory() {
@@ -53,5 +54,13 @@ public class bookingHistory {
 
     public void setSlot(String slot) {
         this.slot = slot;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public String toString(){
+        return this.date + " " + startTime + " " + endTime;
     }
 }

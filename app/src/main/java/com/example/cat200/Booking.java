@@ -42,7 +42,6 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     DatabaseReference plateReference;
     DatabaseReference parkingReference;
     DatabaseReference userReference;
-    DatabaseReference writeReference;
     int current;
     String carPlate;
     int random;
@@ -51,7 +50,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     int charge = 0;
 
     TimePickerDialog timePickerDialog;
-    Calendar calendar;
+    Calendar calender1;
     int startHour;
     int startMinute;
     int endHour;
@@ -83,9 +82,9 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         edit_Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar = Calendar.getInstance();
-                startHour = calendar.get(Calendar.HOUR_OF_DAY);
-                startMinute = calendar.get(Calendar.MINUTE);
+                calender1 = Calendar.getInstance();
+                startHour = calender1.get(Calendar.HOUR_OF_DAY);
+                startMinute = calender1.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -95,7 +94,9 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                         else
                             amPm = "PM";
 
-                        edit_Start.setText(String.format("%02d:%02d", hourOfDay, minute) + amPm);
+                        edit_Start.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        startHour = hourOfDay;
+                        startMinute = minute;
 //                    edit_End.setText(hourOfDay + ":" + minute + amPm);
                     }
 
@@ -110,9 +111,9 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 
             @Override
             public void onClick(View v) {
-                calendar = Calendar.getInstance();
-                endHour = calendar.get(Calendar.HOUR_OF_DAY);
-                endMinute = calendar.get(Calendar.MINUTE);
+                calender1 = Calendar.getInstance();
+                endHour = calender1.get(Calendar.HOUR_OF_DAY);
+                endMinute = calender1.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -122,7 +123,9 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                         else
                             amPm = "PM";
 
-                        edit_End.setText(String.format("%02d:%02d", hourOfDay, minute) + amPm);
+                        edit_End.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        endHour = hourOfDay;
+                        endMinute = minute;
 //                    edit_End.setText(hourOfDay + ":" + minute + amPm);
                     }
 
@@ -156,8 +159,9 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                 int endTime = endHour*60 + endMinute;
                 int duration = endTime - startTime;
                 int i;
-                for (i = 1; duration > i*60; i++)
+                for (i = 0; duration > i*60; i++)
                     charge = charge +2;
+
                 Toast.makeText(Booking.this, ""+startTime+" "+endTime+" "+duration, Toast.LENGTH_LONG).show();
                 bookingHistory.setCarPlate(carPlate);
                 bookingHistory.setDate(edit_Date.getText().toString().trim());
@@ -165,6 +169,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                 bookingHistory.setEndTime(edit_End.getText().toString().trim());
                 bookingHistory.setSlot(parking);
                 bookingHistory.setCharge(charge);
+                bookingHistory.setFlag(false);
 
                 view_Notice.setText("Your current parking slot is ");
                 view_Parking.setTextSize(20);

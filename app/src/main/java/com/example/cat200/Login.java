@@ -23,6 +23,7 @@ public class Login extends AppCompatActivity {
     TextView text_Register;
     Button button_Login;
     DatabaseReference databaseReference;
+    DatabaseReference writeReference;
     long max = 0;
     int current = 0;
 
@@ -61,7 +62,7 @@ public class Login extends AppCompatActivity {
                                 break;
                         }
 
-                        Toast.makeText(Login.this, "Success Reading. ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Line " + current, Toast.LENGTH_SHORT).show();
 
                         password = dataSnapshot.child("user" + current).child("password").getValue().toString();
                         if ( password.equals(edit_Password.getText().toString()))
@@ -69,6 +70,9 @@ public class Login extends AppCompatActivity {
                         else
                             Toast.makeText(Login.this, "Wrong password. ", Toast.LENGTH_SHORT).show();
 
+
+                        writeReference = FirebaseDatabase.getInstance().getReference().child("current");
+                        writeReference.setValue(current);
                     }
 
                     @Override
@@ -77,9 +81,10 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-
+                //Toast.makeText(Login.this, "Got" + current, Toast.LENGTH_SHORT).show();
             }
         });
+
 
         text_Register.setOnClickListener(new View.OnClickListener() {
             @Override

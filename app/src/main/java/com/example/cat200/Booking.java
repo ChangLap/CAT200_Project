@@ -3,13 +3,17 @@ package com.example.cat200;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Booking extends AppCompatActivity {
+public class Booking extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
 
 //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -28,38 +35,57 @@ public class Booking extends AppCompatActivity {
     EditText edit_Date, edit_Start, edit_End;
     TextView view_Notice, view_Parking;
     Button button_Book;
-    DatabaseReference databaseReference;
-    bookingHistory bookingHistory;
+    bookingHistory bookingHistory = new bookingHistory();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference rootReference = firebaseDatabase.getReference();
+    DatabaseReference currentReference;
+    DatabaseReference plateReference;
+    DatabaseReference parkingReference;
+    DatabaseReference userReference;
+    DatabaseReference writeReference;
+    int current;
+    String carPlate;
+    int random;
+    String parking;
+    long folder = 0;
+    int charge = 0;
 
     TimePickerDialog timePickerDialog;
     Calendar calendar;
-    int currentHour;
-    int currentMinute;
+    int startHour;
+    int startMinute;
+    int endHour;
+    int endMinute;
     String amPm;
-    long folder = 0;
-    int current;
-    int carPlate;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
+        edit_Date = (EditText) findViewById(R.id.etDate);
         edit_Start = (EditText) findViewById(R.id.etStart);
         edit_End = (EditText) findViewById(R.id.etEnd);
         button_Book = (Button) findViewById(R.id.btnBook);
         view_Notice = (TextView) findViewById(R.id.tvNotice);
         view_Parking = (TextView) findViewById(R.id.tvParking);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        edit_Date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
 
         edit_Start.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                startHour = calendar.get(Calendar.HOUR_OF_DAY);
+                startMinute = calendar.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -74,7 +100,7 @@ public class Booking extends AppCompatActivity {
                     }
 
 
-                }, currentHour, currentMinute, false);
+                }, startHour, startMinute, false);
 
                 timePickerDialog.show();
             }
@@ -85,8 +111,8 @@ public class Booking extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                endHour = calendar.get(Calendar.HOUR_OF_DAY);
+                endMinute = calendar.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(Booking.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -96,34 +122,94 @@ public class Booking extends AppCompatActivity {
                         else
                             amPm = "PM";
 
-                        edit_End.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        edit_End.setText(String.format("%02d:%02d", hourOfDay, minute) + amPm);
 //                    edit_End.setText(hourOfDay + ":" + minute + amPm);
                     }
 
 
-                }, currentHour, currentMinute, false);
+                }, endHour, endMinute, false);
 
                 timePickerDialog.show();
             }
         });
 
+        userReference = rootReference.child("Booking History");
+        //increment of folders
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                folder = dataSnapshot.getChildrenCount();
+            }
 
-    button_Book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        button_Book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int startTime = startHour*60 + startMinute;
+                int endTime = endHour*60 + endMinute;
+                int duration = endTime - startTime;
+                int i;
+                for (i = 1; duration > i*60; i++)
+                    charge = charge +2;
+                Toast.makeText(Booking.this, ""+startTime+" "+endTime+" "+duration, Toast.LENGTH_LONG).show();
+                bookingHistory.setCarPlate(carPlate);
+                bookingHistory.setDate(edit_Date.getText().toString().trim());
+                bookingHistory.setStartTime(edit_Start.getText().toString().trim());
+                bookingHistory.setEndTime(edit_End.getText().toString().trim());
+                bookingHistory.setSlot(parking);
+                bookingHistory.setCharge(charge);
+
+                view_Notice.setText("Your current parking slot is ");
+                view_Parking.setTextSize(20);
+                view_Parking.setText(parking);
+
+                userReference.child(""+folder).setValue(bookingHistory);
+
+                Toast.makeText(Booking.this, "Data pushed.", Toast.LENGTH_LONG).show();
+
+                mainScene();
+
+
+            }
+        });
+    }
+
+        //shows the dialog of date picking
+        private void showDatePickerDialog () {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    this,
+                    this,
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            );
+            datePickerDialog.show();
+        }
+
+        //set date into editText field
         @Override
-        public void onClick(View v) {
+        public void onDateSet (DatePicker view,int year, int month, int dayOfMonth){
+            String date = dayOfMonth + "/" + month + "/" + year;
+            edit_Date.setText(date);
+        }
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        protected void onStart () {
+            super.onStart();
+
+            currentReference = rootReference.child("current");
+            currentReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    if (dataSnapshot.exists())
-                        folder = dataSnapshot.getChildrenCount();
-
-                    int current = Integer.parseInt(dataSnapshot.child("current").getValue().toString());
-                    String carPlate = dataSnapshot.child("Login Details").child("user" + current).child("carPlate").getValue().toString();
-
-
-
+                    current = Integer.parseInt(dataSnapshot.getValue().toString());
+                    Toast.makeText(Booking.this, "Write no " + current, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -131,11 +217,52 @@ public class Booking extends AppCompatActivity {
 
                 }
             });
+
+            plateReference = rootReference.child("Login Details").child("user" + current).child("carPlate");
+            plateReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    carPlate = dataSnapshot.getValue().toString();
+                    Toast.makeText(Booking.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            random = new Random().nextInt(58) + 1;
+            parkingReference = rootReference.child("Parking Details").child("slot" + random);
+            parkingReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    parking = dataSnapshot.getValue().toString();
+                    Toast.makeText(Booking.this, "Slot no " + parking, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
             String string_carplate=String.valueOf(carPlate);
             bookingHistory.setCarPlate(string_carplate);
 
 
         }
-    });
-    }
+
+        //delay change scene
+        public void mainScene (){
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent (Booking.this, mainMenu.class);
+                    startActivity(intent);
+                    finish();
+                }
+            },3000);
+        }
 }

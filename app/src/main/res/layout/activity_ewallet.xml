@@ -4,10 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-=======
-
->>>>>>> 8a98ced36f9c89560db5d14dc89555af322d736f
     android:orientation="vertical"
     tools:context=".Ewallet">
 

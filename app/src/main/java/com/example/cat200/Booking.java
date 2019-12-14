@@ -247,6 +247,10 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                 }
             });
 
+            String string_carplate=String.valueOf(carPlate);
+            bookingHistory.setCarPlate(string_carplate);
+
+
         }
 
         //delay change scene

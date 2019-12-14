@@ -35,7 +35,7 @@ public class userDetail {
         return Ewallet;
     }
 
-    public void setEwallet(float ewallet) {
+    public void setEwallet(double ewallet) {
         Ewallet = ewallet;
     }
 }

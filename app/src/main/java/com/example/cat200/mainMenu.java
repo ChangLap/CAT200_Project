@@ -34,6 +34,14 @@ public class mainMenu extends AppCompatActivity {
                 reportScene();
             }
         });
+
+        Button wallet = (Button) findViewById(R.id.walletButton);
+        wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                walletScene();
+            }
+        });
     }
 
     public void mappingScene() {
@@ -46,5 +54,9 @@ public class mainMenu extends AppCompatActivity {
         startActivity(change);
     }
 
+    public void walletScene(){
+        Intent change = new Intent(this, Ewallet.class);
+        startActivity(change);
+    }
 
 }

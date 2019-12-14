@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Ewallet"></activity>
+        <activity android:name=".PaymentFail"></activity>
+        <activity android:name=".PaymentSuccess" />
+        <activity android:name=".Payment" />
+        <activity android:name=".Ewallet" />
         <activity android:name=".Booking" />
         <activity android:name=".Report" />
         <activity android:name=".FragmentLF3" />

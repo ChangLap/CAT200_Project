@@ -131,8 +131,8 @@ public class Booking extends AppCompatActivity {
 
                 }
             });
-
-            bookingHistory.setCarPlate(carPlate);
+            String string_carplate=String.valueOf(carPlate);
+            bookingHistory.setCarPlate(string_carplate);
 
 
         }

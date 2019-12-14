@@ -38,7 +38,7 @@ public class Booking extends AppCompatActivity {
     String amPm;
     long folder = 0;
     int current;
-    int carPlate;
+    String carPlate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

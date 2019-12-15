@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Payment">
 
     <TextView
@@ -11,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
+        android:fontFamily="@font/roundpop"
+        android:textColor="@color/colorPrimaryDark"
         android:text="The total amount due is"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textIsSelectable="false"
@@ -31,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222"
+        app:layout_constraintVertical_bias="0.189"
         app:srcCompat="@drawable/payment" />
 
     <TextView
@@ -51,18 +54,19 @@
 
     <TextView
         android:id="@+id/tvAmountDue"
-        android:layout_width="155dp"
-        android:layout_height="62dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
         android:text="TextView"
+        android:textColor="@color/colorDarkGrey"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="36sp"
+        android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603" />
+        app:layout_constraintVertical_bias="0.586" />
 
     <Button
         android:id="@+id/bPay"
@@ -74,7 +78,6 @@
         android:textAllCaps="false"
         android:textColor="@color/colorYellow"
         android:textSize="25sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -80,7 +80,19 @@
         android:id="@+id/twEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/button_curvedark"
+        android:fontFamily="@font/roundpop"
+        android:text="book !"
+        android:textColor="@color/colorYellow"
+        android:textSize="25dp"
+=======
         android:text="End"
+>>>>>>> 4b4ac6e6ae13ab03d45b256a44323b7724f97fd3
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.78"

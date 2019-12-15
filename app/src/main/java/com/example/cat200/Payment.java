@@ -97,7 +97,6 @@ public class Payment extends AppCompatActivity {
 
                     }
                 });
-                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
 
             }
 

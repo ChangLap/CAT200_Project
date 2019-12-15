@@ -6,25 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".QRCode">
 
-<<<<<<< HEAD
 
-
-    <EditText
-        android:id="@+id/etInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="622dp"
-        android:hint="Enter Text to generate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-=======
->>>>>>> c3c2f54240524666b8bed5f7a11e6af82f965263
     <Button
         android:id="@+id/btn"
         android:layout_width="200dp"

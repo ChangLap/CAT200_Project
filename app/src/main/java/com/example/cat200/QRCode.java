@@ -41,16 +41,11 @@ public class QRCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
-<<<<<<< HEAD
 
 
-        final Context context = this;
-
-
-=======
+        
         
         final Context context = this;
->>>>>>> c3c2f54240524666b8bed5f7a11e6af82f965263
         ImageView = findViewById(R.id.ImageView);
 
         now = rootData.child("current");

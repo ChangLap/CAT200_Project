@@ -97,26 +97,21 @@
         android:id="@+id/twEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
 
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="140dp"
         android:background="@drawable/button_curvedark"
-        android:fontFamily="@font/roundpop"
-        android:textColor="@color/colorYellow"
-        android:textSize="25dp"
 
-        android:text="End"
 
-=======
+
         android:fontFamily="@font/roundpop"
         android:text="END"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
->>>>>>> c3c2f54240524666b8bed5f7a11e6af82f965263
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.712"

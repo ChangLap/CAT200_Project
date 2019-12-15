@@ -3,7 +3,10 @@ package com.example.cat200;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ public class PaymentSuccess extends AppCompatActivity {
     DatabaseReference rootReference = firebaseDatabase.getReference();
     DatabaseReference currentReference;
     DatabaseReference walletReference;
+    Button gobackmainmenu;
     int current;
     int balance;
 
@@ -44,6 +48,15 @@ public class PaymentSuccess extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         balance = Integer.parseInt(dataSnapshot.getValue().toString());
                         textView.setText("RM"+ String.valueOf(balance));
+
+                        gobackmainmenu = (Button) findViewById(R.id.b_afterSuccess);
+                        gobackmainmenu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent change = new Intent(PaymentSuccess.this, mainMenu.class);
+                                startActivity(change);
+                            }
+                        });
                     }
 
                     @Override

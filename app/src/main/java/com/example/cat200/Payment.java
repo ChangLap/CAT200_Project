@@ -112,6 +112,12 @@ public class Payment extends AppCompatActivity {
                     }
 
                 });
+<<<<<<< HEAD
+//                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
+
+
+=======
+>>>>>>> 8467041ed178ef1b518ab0946fade311bcd88a0a
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

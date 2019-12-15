@@ -27,7 +27,7 @@ public class Ewallet extends AppCompatActivity {
             public void onClick(View v){
                 Intent change = new Intent(Ewallet.this, Payment.class);
                 startActivity(change);
-
+                finish();
             }
         });
 

@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -32,8 +32,8 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //            .setAction("Action", null).show();
 
-    EditText edit_Date, edit_Start, edit_End;
-    TextView view_Notice, view_Parking;
+    ImageView image_Date, image_Start, image_End;
+    TextView text_Date, text_Start, text_End;
     Button button_Book;
     bookingHistory bookingHistory = new bookingHistory();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -63,15 +63,16 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
-        edit_Date = (EditText) findViewById(R.id.etDate);
-        edit_Start = (EditText) findViewById(R.id.etStart);
-        edit_End = (EditText) findViewById(R.id.etEnd);
+        image_Date = (ImageView) findViewById(R.id.iwDate);
+        image_Start = (ImageView) findViewById(R.id.iwStart);
+        image_End = (ImageView) findViewById(R.id.iwEnd);
+        text_Date = (TextView) findViewById(R.id.twDate);
+        text_Start = (TextView) findViewById(R.id.twStart);
+        text_End = (TextView) findViewById(R.id.twEnd);
         button_Book = (Button) findViewById(R.id.btnBook);
-        view_Notice = (TextView) findViewById(R.id.tvNotice);
-        view_Parking = (TextView) findViewById(R.id.tvParking);
 
 
-        edit_Date.setOnClickListener(new View.OnClickListener() {
+        image_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
@@ -79,7 +80,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         });
 
 
-        edit_Start.setOnClickListener(new View.OnClickListener() {
+        image_Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calender1 = Calendar.getInstance();
@@ -94,7 +95,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                         else
                             amPm = "PM";
 
-                        edit_Start.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        text_Start.setText(String.format("%02d:%02d", hourOfDay, minute));
                         startHour = hourOfDay;
                         startMinute = minute;
 //                    edit_End.setText(hourOfDay + ":" + minute + amPm);
@@ -107,7 +108,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
             }
         });
 
-        edit_End.setOnClickListener(new View.OnClickListener() {
+        image_End.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -123,7 +124,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                         else
                             amPm = "PM";
 
-                        edit_End.setText(String.format("%02d:%02d", hourOfDay, minute));
+                        text_End.setText(String.format("%02d:%02d", hourOfDay, minute));
                         endHour = hourOfDay;
                         endMinute = minute;
 //                    edit_End.setText(hourOfDay + ":" + minute + amPm);
@@ -141,8 +142,8 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                folder = dataSnapshot.getChildrenCount();
+                if (dataSnapshot.exists())
+                    folder = dataSnapshot.getChildrenCount();
             }
 
             @Override
@@ -155,39 +156,33 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View v) {
 
-                int startTime = startHour*60 + startMinute;
-                int endTime = endHour*60 + endMinute;
+                int startTime = startHour * 60 + startMinute;
+                int endTime = endHour * 60 + endMinute;
                 int duration = endTime - startTime;
                 int i;
-                for (i = 0; duration > i*60; i++)
-                    charge = charge +2;
+                for (i = 0; duration > i * 60; i++)
+                    charge = charge + 2;
 
-                Toast.makeText(Booking.this, ""+current+" "+carPlate+" "+parking, Toast.LENGTH_LONG).show();
+                Toast.makeText(Booking.this, "" + current + " " + carPlate + " " + parking, Toast.LENGTH_LONG).show();
                 bookingHistory.setCarPlate(carPlate);
-                bookingHistory.setDate(edit_Date.getText().toString().trim());
-                bookingHistory.setStartTime(edit_Start.getText().toString().trim());
-                bookingHistory.setEndTime(edit_End.getText().toString().trim());
+                bookingHistory.setDate(text_Date.getText().toString().trim());
+                bookingHistory.setStartTime(text_Start.getText().toString().trim());
+                bookingHistory.setEndTime(text_End.getText().toString().trim());
                 bookingHistory.setSlot(parking);
                 bookingHistory.setCharge(charge);
                 bookingHistory.setFlag(false);
 
-                view_Notice.setText("Your current parking slot is ");
-                view_Parking.setTextSize(20);
-                view_Parking.setText(parking);
-
-                userReference.child(""+folder).setValue(bookingHistory);
+                userReference.child("" + folder).setValue(bookingHistory);
 
                 Toast.makeText(Booking.this, "Data pushed.", Toast.LENGTH_LONG).show();
 
                 mainScene();
-
-
             }
         });
     }
 
     //shows the dialog of date picking
-    private void showDatePickerDialog () {
+    private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
                 this,
@@ -200,13 +195,13 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 
     //set date into editText field
     @Override
-    public void onDateSet (DatePicker view,int year, int month, int dayOfMonth){
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth + "/" + month + "/" + year;
-        edit_Date.setText(date);
+        text_Date.setText(date);
     }
 
     @Override
-    protected void onStart () {
+    protected void onStart() {
         super.onStart();
 
         currentReference = rootReference.child("current");
@@ -256,15 +251,18 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     }
 
     //delay change scene
-    public void mainScene (){
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Intent intent = new Intent (Booking.this, mainMenu.class);
-                startActivity(intent);
-                finish();
-            }
-        },3000);
+    public void mainScene() {
+        Intent intent = new Intent(Booking.this, bookingDone.class);
+
+        startActivity(intent);
+//        timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//                finish();
+//            }
+//        },3000);
+//    }
     }
 }

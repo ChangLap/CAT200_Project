@@ -12,11 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".TopUp"></activity>
-
-        <activity android:name=".QRCode"></activity>
-
+        <activity android:name=".bookingDone"></activity>
+        <activity android:name=".TopUp" />
+        <activity android:name=".QRCode" />
         <activity android:name=".BookingRecord" />
         <activity android:name=".PaymentFail" />
         <activity android:name=".PaymentSuccess" />
@@ -42,6 +40,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

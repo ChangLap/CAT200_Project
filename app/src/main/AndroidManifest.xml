@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
+
         <activity android:name=".TopUp"></activity>
-=======
+
         <activity android:name=".QRCode"></activity>
->>>>>>> 8467041ed178ef1b518ab0946fade311bcd88a0a
+
         <activity android:name=".BookingRecord" />
         <activity android:name=".PaymentFail" />
         <activity android:name=".PaymentSuccess" />

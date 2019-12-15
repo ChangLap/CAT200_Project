@@ -2,7 +2,7 @@ package com.example.cat200;
 
 public class userDetail {
     private String Email, Password, CarPlate;
-    private double Ewallet;
+    private int Ewallet;
 
     public userDetail() {
     }
@@ -31,11 +31,11 @@ public class userDetail {
         CarPlate = carPlate;
     }
 
-    public double getEwallet() {
+    public int getEwallet() {
         return Ewallet;
     }
 
-    public void setEwallet(double ewallet) {
+    public void setEwallet(int ewallet) {
         Ewallet = ewallet;
     }
 }

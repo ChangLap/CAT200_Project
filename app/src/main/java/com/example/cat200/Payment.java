@@ -21,20 +21,18 @@ public class Payment extends AppCompatActivity {
 
     TextView amountdue;
     Button buttonPaynow;
-    double balance;
+    int balance;
 
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference rootReference = firebaseDatabase.getReference();
     DatabaseReference currentReference;
-    DatabaseReference walletReference;
+    DatabaseReference readReference;
     DatabaseReference plateReference;
     DatabaseReference costReference;
     DatabaseReference updatewallet;
     boolean flag;
-    boolean paySuccess;
     String carPlate;
-    String sBalance;
     String bookingPlate;
     int cost = 0;
     int current;
@@ -45,25 +43,25 @@ public class Payment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        buttonPaynow = findViewById(R.id.bPay);
+
+        amountdue = (TextView) findViewById(R.id.tvAmountDue);
+        buttonPaynow = (Button) findViewById(R.id.bPay);
         buttonPaynow.setOnClickListener(new View.OnClickListener() {
-//            @Override
+            @Override
             public void onClick(View v) {
-                if (balance>cost) {
-                    Intent success = new Intent(Payment.this, PaymentSuccess.class);
-                    startActivity(success);
-                    balance = balance - cost;
-                    updatewallet = rootReference.child("Login Details").child("user" + current);
-                    updatewallet.child("ewallet").setValue(balance);
-//                    Toast.makeText(Payment.this, "Balance" + sBalance, Toast.LENGTH_LONG).show();
-                } else {
-                    Intent fail = new Intent(Payment.this, PaymentFail.class);
-                    startActivity(fail);
+                if(balance > cost ){
+                    Intent change = new Intent(Payment.this, PaymentSuccess.class);
+                    startActivity(change);
                 }
+                else{
+                    Intent change = new Intent(Payment.this, PaymentFail.class);
+                    startActivity(change);
+                }
+
+                //Toast.makeText(Payment.this, current + " " + carPlate + " " + balance+ " " + cost, Toast.LENGTH_LONG).show();
+
             }
         });
-
-//        Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
     }
 
 
@@ -71,18 +69,18 @@ public class Payment extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
-            currentReference = rootReference.child("current");
-            currentReference.addValueEventListener(new ValueEventListener() {
+        currentReference = rootReference.child("current");
+        currentReference.addValueEventListener(new ValueEventListener() {
+            @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 current = Integer.parseInt(dataSnapshot.getValue().toString());
 
-                walletReference = rootReference.child("Login Details").child("user" + current).child("ewallet");
-                walletReference.addValueEventListener(new ValueEventListener() {
+                readReference = rootReference.child("Login Details").child("user" + current);
+                readReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        sBalance = dataSnapshot.getValue().toString();
-//                        Toast.makeText(Payment.this, "Balance" + sBalance, Toast.LENGTH_LONG).show();
+                        balance = Integer.parseInt(dataSnapshot.child("ewallet").getValue().toString());
+                        carPlate = dataSnapshot.child("carPlate").getValue().toString();
                     }
 
                     @Override
@@ -90,21 +88,6 @@ public class Payment extends AppCompatActivity {
 
                     }
                 });
-
-                plateReference = rootReference.child("Login Details").child("user" + current).child("carPlate");
-                plateReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        carPlate = dataSnapshot.getValue().toString();
-                        Toast.makeText(Payment.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                Toast.makeText(Payment.this, "Line: " + current, Toast.LENGTH_LONG).show();
 
                 costReference = rootReference.child("Booking History");
                 costReference.addValueEventListener(new ValueEventListener() {
@@ -120,14 +103,6 @@ public class Payment extends AppCompatActivity {
                                 cost = cost + Integer.parseInt(dataSnapshot.child("" + i).child("charge").getValue().toString());
 
                         }
-                        Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
-
-                        amountdue = (TextView) findViewById(R.id.tvAmountDue);
-                        String s = String.valueOf(cost);
-                        amountdue.setText("RM " + s);
-
-                        balance = Double.valueOf(sBalance);
-
 
                     }
 
@@ -137,52 +112,13 @@ public class Payment extends AppCompatActivity {
                     }
 
                 });
-<<<<<<< HEAD
-//                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
-=======
->>>>>>> e409e34f3b44a4a15481c35d12ddc9f603b83bc2
-
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 
         });
-//        buttonPaynow = findViewById(R.id.bPay);
-//        buttonPaynow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (balance>totalamountdue) {
-//                    balance=balance-totalamountdue;
-//                    final DatabaseReference updatewallet = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user"+currentuser);
-//                    updatewallet.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            balance = (double) dataSnapshot.getValue();
-//                            updatewallet.setValue(balance);
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                        }
-//                    });
-////                    take.setEwallet(balance);
-////
-////                    .child("user" + currentuser).setValue(take);
-//
-//                    Intent success = new Intent(Payment.this, PaymentSuccess.class);
-//                    startActivity(success);
-//                } else {
-//                    Intent fail = new Intent(Payment.this, PaymentFail.class);
-//                    startActivity(fail);
-//                }
-//            }
-//        });
+
     }
 }
-

@@ -49,6 +49,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
     long folder = 0;
     int charge = 0;
 
+
     TimePickerDialog timePickerDialog;
     Calendar calender1;
     int startHour;
@@ -176,7 +177,10 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 
                 Toast.makeText(Booking.this, "Data pushed.", Toast.LENGTH_LONG).show();
 
-                mainScene();
+
+                final Intent intent = new Intent(Booking.this, bookingDone.class);
+                intent.putExtra("KEY", parking);
+                startActivity(intent);
             }
         });
     }
@@ -250,19 +254,6 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 
     }
 
-    //delay change scene
-    public void mainScene() {
-        Intent intent = new Intent(Booking.this, bookingDone.class);
 
-        startActivity(intent);
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//
-//                finish();
-//            }
-//        },3000);
-//    }
     }
-}
+

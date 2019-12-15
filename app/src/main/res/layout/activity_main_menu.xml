@@ -16,15 +16,15 @@
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         android:fontFamily="@font/roundpop"
-        android:text="WELCOME BACK !"
+        android:text="GOPAK"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="32sp"
+        android:textSize="56sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
+        app:layout_constraintVertical_bias="0.100000024"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -38,16 +38,38 @@
         android:layout_marginRight="95dp"
         android:layout_marginBottom="53dp"
         android:fontFamily="@font/roundpop"
-        android:text="WELCOME BACK !"
+        android:text="GOPAK!"
         android:textColor="@color/colorYellow"
-        android:textSize="32sp"
+        android:textSize="55sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginRight="89dp"
+        android:fontFamily="@font/roundpop"
+        android:text="GOPAK or GOHOME !"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.130000014"
+        app:layout_constraintVertical_bias="0.120000005"
         tools:ignore="HardcodedText" />
+
 
     <Button
         android:layout_width="140dp"
@@ -59,7 +81,7 @@
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.911" />
+        app:layout_constraintVertical_bias="0.961" />
 
     <Button
         android:id="@+id/reportButton"
@@ -75,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896" />
+        app:layout_constraintVertical_bias="0.946" />
 
     <Button
         android:layout_width="140dp"
@@ -87,7 +109,7 @@
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
+        app:layout_constraintVertical_bias="0.387" />
 
     <Button
         android:id="@+id/bookingButton"
@@ -103,7 +125,7 @@
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <Button
         android:layout_width="140dp"
@@ -115,7 +137,7 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.675" />
 
     <Button
         android:id="@+id/locationButton"
@@ -131,7 +153,7 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
         android:layout_width="140dp"
@@ -143,7 +165,7 @@
         app:layout_constraintHorizontal_bias="0.158"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.675" />
 
     <Button
         android:id="@+id/walletButton"
@@ -159,7 +181,7 @@
         app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
         android:layout_width="140dp"
@@ -171,7 +193,7 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
+        app:layout_constraintVertical_bias="0.387" />
 
     <Button
         android:id="@+id/recordButton"
@@ -187,7 +209,7 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <Button
         android:id="@+id/button"
@@ -200,7 +222,7 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.96" />
 
     <Button
         android:id="@+id/qrbutton"
@@ -216,18 +238,15 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.895" />
+        app:layout_constraintVertical_bias="0.945" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="415dp"
+        android:layout_height="476dp"
         android:background="@drawable/button_curvewhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        tools:layout_editor_absoluteX="-2dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

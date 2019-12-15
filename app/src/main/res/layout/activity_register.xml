@@ -19,7 +19,7 @@
         android:fontFamily="@font/roundpop"
         android:text="register !"
         android:textColor="@color/colorYellow"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <EditText
         android:id="@+id/etEmail"

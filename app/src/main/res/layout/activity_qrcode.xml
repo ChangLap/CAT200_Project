@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".QRCode">
 
-<<<<<<< HEAD
-=======
+
+
     <EditText
         android:id="@+id/etInput"
         android:layout_width="0dp"
@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
->>>>>>> 0b8b8102c66ec5bbd1353cb9f8bc9aa579d0becc
 
     <Button
         android:id="@+id/btn"

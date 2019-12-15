@@ -66,7 +66,7 @@ public class bookingHistory {
 
     public String toString(String returnPlate){
         if (returnPlate.equals(carPlate))
-            return "(" + date + ")  " + "Start:" + startTime + "  End:" + endTime + "";
+            return "(" + date + ")  " + "\nStart:" + startTime + "  End:" + endTime + "";
         else
             return "No data";
     }

@@ -42,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:gravity="center"
         android:textColor="@color/colorDarkGrey"
         android:textSize="50sp"
         android:textStyle="bold"
@@ -71,16 +72,14 @@
         android:id="@+id/textView29"
         android:layout_width="282dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
         android:fontFamily="@font/roundpop"
         android:gravity="clip_horizontal|center_horizontal|center_vertical"
         android:text="Please enter the amount you would like to top up your Ewallet"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintTop_toBottomOf="@+id/b_showBalance"
+        app:layout_constraintVertical_bias="0.204" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,7 +47,6 @@ public class QRCode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
 
-        final Context context = this;
         etInput = findViewById(R.id.etInput);
         btnCreateQr = findViewById(R.id.btnCreate);
         ImageView = findViewById(R.id.ImageView);

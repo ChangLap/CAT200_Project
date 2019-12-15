@@ -17,37 +17,29 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Payment extends AppCompatActivity {
 
-//    TextView amountdue;
-//    Button buttonPaynow;
-//    double totalamountdue = 3.5;
-//    double balance;
+    TextView amountdue;
+    Button buttonPaynow;
+    double totalamountdue;
+    double balance;
 
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference rootReference = firebaseDatabase.getReference();
     DatabaseReference currentReference;
     DatabaseReference walletReference;
+    DatabaseReference plateReference;
+    DatabaseReference costReference;
+    String carPlate;
     String sBalance;
+    String bookingPlate;
+    int cost = 0;
     int current;
+    long max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
-//        amountdue = (TextView) findViewById(R.id.tvAmountDue);
-//        String s = String.valueOf(totalamountdue);
-//
-//        amountdue.setText("RM " + s);
-
-        Toast.makeText(Payment.this, "Line: " + current, Toast.LENGTH_LONG).show();
-//        Toast.makeText(Payment.this, "Balance" + sBalance, Toast.LENGTH_LONG).show();
-
-    }
-
-    @Override
-    protected void onStart () {
-        super.onStart();
 
         currentReference = rootReference.child("current");
         currentReference.addValueEventListener(new ValueEventListener() {
@@ -55,12 +47,48 @@ public class Payment extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 current = Integer.parseInt(dataSnapshot.getValue().toString());
 
-
                 walletReference = rootReference.child("Login Details").child("user" + current).child("ewallet");
                 walletReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         sBalance = dataSnapshot.getValue().toString();
+                        Toast.makeText(Payment.this, "Balance" + sBalance, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                plateReference = rootReference.child("Login Details").child("user" + current).child("carPlate");
+                plateReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        carPlate = dataSnapshot.getValue().toString();
+                        Toast.makeText(Payment.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                Toast.makeText(Payment.this, "Line: " + current, Toast.LENGTH_LONG).show();
+
+                costReference = rootReference.child("Booking History");
+                costReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                            max = dataSnapshot.getChildrenCount();
+
+                        for (int i = 0; i < max; i++) {
+                            bookingPlate = dataSnapshot.child("" + i).child("carPlate").getValue().toString();
+                            if (carPlate.equals(bookingPlate))
+                                cost = cost + Integer.parseInt(dataSnapshot.child("" + i).child("charge").getValue().toString());
+
+                        }
 
                     }
 
@@ -69,6 +97,8 @@ public class Payment extends AppCompatActivity {
 
                     }
                 });
+                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -76,8 +106,17 @@ public class Payment extends AppCompatActivity {
 
             }
         });
+    }
+
+//        amountdue = (TextView) findViewById(R.id.tvAmountDue);
+//        String s = String.valueOf(totalamountdue);
+//
+//        amountdue.setText("RM " + s);
 
 
+        @Override
+        protected void onStart(){
+            super.onStart();
 
 
 //        buttonPaynow = findViewById(R.id.bPay);
@@ -112,5 +151,5 @@ public class Payment extends AppCompatActivity {
 //                }
 //            }
 //        });
+        }
     }
-}

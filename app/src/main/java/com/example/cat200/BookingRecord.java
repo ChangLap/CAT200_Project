@@ -7,20 +7,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class BookingRecord extends AppCompatActivity {
-    DatabaseReference databaseReference;
+
     ListView listView;
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
+
+    DatabaseReference databaseReference;
+    DatabaseReference currentReference;
+    DatabaseReference plateReference;
+
+    int current;
+    String carPlate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,39 @@ public class BookingRecord extends AppCompatActivity {
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentReference = FirebaseDatabase.getInstance().getReference().child("current");
+        currentReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                current = Integer.parseInt(dataSnapshot.getValue().toString());
+                Toast.makeText(BookingRecord.this, "Write no " + current, Toast.LENGTH_SHORT).show();
+
+                plateReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user" + current).child("carPlate");
+                plateReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        carPlate = dataSnapshot.getValue().toString();
+                        Toast.makeText(BookingRecord.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

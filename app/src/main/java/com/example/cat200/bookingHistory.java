@@ -60,7 +60,11 @@ public class bookingHistory {
         this.flag = flag;
     }
 
+    public boolean isFlag() {
+        return flag;
+    }
+
     public String toString(){
-        return this.date + " " + startTime + " " + endTime;
+        return "(" + date + ")  " + "Start:" + startTime + "  End:" + endTime;
     }
 }

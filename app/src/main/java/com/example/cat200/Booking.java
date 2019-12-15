@@ -162,7 +162,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
                 for (i = 0; duration > i*60; i++)
                     charge = charge +2;
 
-                Toast.makeText(Booking.this, ""+startTime+" "+endTime+" "+duration, Toast.LENGTH_LONG).show();
+                Toast.makeText(Booking.this, ""+current+" "+carPlate+" "+parking, Toast.LENGTH_LONG).show();
                 bookingHistory.setCarPlate(carPlate);
                 bookingHistory.setDate(edit_Date.getText().toString().trim());
                 bookingHistory.setStartTime(edit_Start.getText().toString().trim());

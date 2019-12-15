@@ -252,7 +252,7 @@ public class Booking extends AppCompatActivity implements DatePickerDialog.OnDat
 
     //delay change scene
     public void mainScene() {
-        Intent intent = new Intent(Booking.this, .class);
+        Intent intent = new Intent(Booking.this, bookingDone.class);
 
         startActivity(intent);
 //        timer = new Timer();

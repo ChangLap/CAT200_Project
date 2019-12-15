@@ -83,14 +83,14 @@ public class BookingRecord extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 current = Integer.parseInt(dataSnapshot.getValue().toString());
-                Toast.makeText(BookingRecord.this, "Write no " + current, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookingRecord.this, "Write no " + current, Toast.LENGTH_LONG).show();
 
                 plateReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user" + current).child("carPlate");
                 plateReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         carPlate = dataSnapshot.getValue().toString();
-                        Toast.makeText(BookingRecord.this, "Carplate no " + carPlate, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookingRecord.this, "Carplate no " + carPlate, Toast.LENGTH_LONG).show();
                     }
 
                     @Override

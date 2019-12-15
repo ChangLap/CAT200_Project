@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,21 +19,38 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PaymentSuccess extends AppCompatActivity {
 
-    TextView showSuccess;
-    DatabaseReference writedatabase;
-    Button gobackmainmenu;
-    String currentuser,newbalance;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference rootReference = firebaseDatabase.getReference();
+    DatabaseReference currentReference;
+    DatabaseReference walletReference;
+    int current;
+    String sBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_success);
 
-        writedatabase = FirebaseDatabase.getInstance().getReference().child("current");
-        writedatabase.addValueEventListener(new ValueEventListener() {
+        currentReference = rootReference.child("current");
+        currentReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                currentuser = dataSnapshot.getValue().toString();
+                current = Integer.parseInt(dataSnapshot.getValue().toString());
+
+                walletReference = rootReference.child("Login Details").child("user" + current).child("ewallet");
+                walletReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        sBalance = dataSnapshot.getValue().toString();
+                        Toast.makeText(PaymentSuccess.this, "Hi, Balance" + sBalance, Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -40,30 +58,5 @@ public class PaymentSuccess extends AppCompatActivity {
 
             }
         });
-        writedatabase = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user"+currentuser);
-        writedatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                newbalance = dataSnapshot.child("ewallet").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        showSuccess = (TextView) findViewById(R.id.tvSuccess_ewallet);
-        showSuccess.setText("RM "+newbalance);
-
-        gobackmainmenu = (Button) findViewById(R.id.b_afterSuccess);
-        gobackmainmenu.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent change = new Intent(PaymentSuccess.this, mainMenu.class);
-                startActivity(change);
-            }
-        });
-
     }
 }

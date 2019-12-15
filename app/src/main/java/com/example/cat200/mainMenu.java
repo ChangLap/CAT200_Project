@@ -72,4 +72,8 @@ public class mainMenu extends AppCompatActivity {
         startActivity(change);
     }
 
+    public void qrScene(){
+        Intent change = new Intent(this, QRCode.class);
+        startActivity(change);
+    }
 }

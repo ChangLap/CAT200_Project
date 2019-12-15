@@ -64,7 +64,10 @@ public class bookingHistory {
         return flag;
     }
 
-    public String toString(){
-        return "(" + date + ")  " + "Start:" + startTime + "  End:" + endTime;
+    public String toString(String returnPlate){
+        if (returnPlate.equals(carPlate))
+            return "(" + date + ")  " + "Start:" + startTime + "  End:" + endTime + "";
+        else
+            return "No data";
     }
 }

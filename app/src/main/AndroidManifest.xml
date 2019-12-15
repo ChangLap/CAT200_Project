@@ -16,8 +16,6 @@
         <activity android:name=".Ewallet" />
         <activity android:name=".Booking" />
         <activity android:name=".Report" />
-        <activity android:name=".FragmentLF3" />
-        <activity android:name=".FragmentLF2" />
         <activity android:name=".FragmentLF1" />
         <activity android:name=".FragmentGF" />
         <activity

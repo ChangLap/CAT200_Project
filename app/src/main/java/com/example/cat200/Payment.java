@@ -124,7 +124,8 @@ public class Payment extends AppCompatActivity {
                             flag = Boolean.valueOf(dataSnapshot.child("" + i).child("flag").getValue().toString());
                             if (carPlate.equals(bookingPlate) && !flag)
                                 cost = cost + Integer.parseInt(dataSnapshot.child("" + i).child("charge").getValue().toString());
-
+                            if (i==max)
+                                break;
                         }
                         amountdue = (TextView) findViewById(R.id.tvAmountDue);
                         amountdue.setText("RM"+ String.valueOf(cost));
@@ -137,6 +138,10 @@ public class Payment extends AppCompatActivity {
                     }
 
                 });
+
+//                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

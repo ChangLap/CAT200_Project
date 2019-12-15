@@ -72,7 +72,7 @@
         android:fontFamily="@font/roundpop"
         android:text="Pay Now !"
         android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorYellow"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

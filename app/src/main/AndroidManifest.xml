@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BookingRecord"></activity>
+        <activity android:name=".QRCode"></activity>
+        <activity android:name=".BookingRecord" />
         <activity android:name=".PaymentFail" />
         <activity android:name=".PaymentSuccess" />
         <activity android:name=".Payment" />

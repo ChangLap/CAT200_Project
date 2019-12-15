@@ -50,6 +50,14 @@ public class mainMenu extends AppCompatActivity {
                 recordScene();
             }
         });
+
+        Button qrcode = (Button) findViewById(R.id.qrbutton);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrScene();
+            }
+        });
     }
 
     public void mappingScene() {

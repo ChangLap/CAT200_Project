@@ -6,15 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".PaymentSuccess">
 
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="230dp"
+        android:layout_height="194dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.167"
+        app:srcCompat="@drawable/correct" />
+
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roundpop"
+        android:text="PAYMENT SUCCESS!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorYellow"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.43" />
+
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PAYMENT SUCCESS!"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#090101"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="@font/roundpop"
         android:textSize="35sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -22,14 +51,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.418" />
 
+
+
     <TextView
         android:id="@+id/tvSuccess_ewallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:gravity="center"
+        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#090101"
+        android:textColor="@color/colorDarkGrey"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,16 +68,16 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintVertical_bias="0.643" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="The balance in your Ewallet now:"
-        android:textColor="#090000"
-        android:textSize="26sp"
-        android:textStyle="bold"
+        android:textColor="@color/colorDarkGrey"
+        android:fontFamily="@font/roundpop"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -58,16 +89,16 @@
         android:id="@+id/b_afterSuccess"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roundpop"
         android:background="@drawable/button_curvedark"
+        android:fontFamily="@font/roundpop"
         android:text="TERBAIK !"
         android:textColor="@color/colorYellow"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSuccess_ewallet"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.345" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

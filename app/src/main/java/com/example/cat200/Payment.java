@@ -23,9 +23,6 @@ public class Payment extends AppCompatActivity {
     Button buttonPaynow;
     int balance;
 
-
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference rootReference = firebaseDatabase.getReference();
     DatabaseReference currentReference;
     DatabaseReference readReference;
     DatabaseReference plateReference;
@@ -37,19 +34,45 @@ public class Payment extends AppCompatActivity {
     int cost = 0;
     int current;
     long max;
-
+    String plate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        amountdue = (TextView) findViewById(R.id.tvAmountDue);
         buttonPaynow = (Button) findViewById(R.id.bPay);
+        updatewallet = FirebaseDatabase.getInstance().getReference();
         buttonPaynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Payment.this, current + " " + carPlate + " " + balance+ " " + cost, Toast.LENGTH_LONG).show();
                 if(balance > cost ){
+                    balance = balance - cost;
+
+                    costReference = FirebaseDatabase.getInstance().getReference().child("Booking History");
+                    costReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (int i = 0; i < max; i++) {
+                                bookingPlate = dataSnapshot.child("" + i).child("carPlate").getValue().toString();
+                                flag = Boolean.valueOf(dataSnapshot.child("" + i).child("flag").getValue().toString());
+                                if (carPlate.equals(bookingPlate) && !flag){
+                                    flag = true;
+                                    updatewallet.child("Booking Details").child(""+i).child("flag").setValue(flag);
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+                    });
+
+                    updatewallet.child("Login Details").child("user"+ current).child("ewallet").setValue(balance);
+
                     Intent change = new Intent(Payment.this, PaymentSuccess.class);
                     startActivity(change);
                 }
@@ -69,13 +92,13 @@ public class Payment extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        currentReference = rootReference.child("current");
+        currentReference = FirebaseDatabase.getInstance().getReference().child("current");
         currentReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 current = Integer.parseInt(dataSnapshot.getValue().toString());
 
-                readReference = rootReference.child("Login Details").child("user" + current);
+                readReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user" + current);
                 readReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,7 +112,7 @@ public class Payment extends AppCompatActivity {
                     }
                 });
 
-                costReference = rootReference.child("Booking History");
+                costReference = FirebaseDatabase.getInstance().getReference().child("Booking History");
                 costReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,6 +126,8 @@ public class Payment extends AppCompatActivity {
                                 cost = cost + Integer.parseInt(dataSnapshot.child("" + i).child("charge").getValue().toString());
 
                         }
+                        amountdue = (TextView) findViewById(R.id.tvAmountDue);
+                        amountdue.setText("RM"+ String.valueOf(cost));
 
                     }
 
@@ -121,4 +146,5 @@ public class Payment extends AppCompatActivity {
         });
 
     }
+
 }

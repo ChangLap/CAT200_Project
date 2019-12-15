@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,12 +20,16 @@ public class PaymentSuccess extends AppCompatActivity {
     DatabaseReference currentReference;
     DatabaseReference walletReference;
     int current;
-    String sBalance;
+    int balance;
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_success);
+
+        textView = (TextView) findViewById(R.id.tvSuccess_ewallet) ;
 
         currentReference = rootReference.child("current");
         currentReference.addValueEventListener(new ValueEventListener() {
@@ -37,8 +42,8 @@ public class PaymentSuccess extends AppCompatActivity {
                 walletReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        sBalance = dataSnapshot.getValue().toString();
-                        Toast.makeText(PaymentSuccess.this, "Hi, Balance" + sBalance, Toast.LENGTH_LONG).show();
+                        balance = Integer.parseInt(dataSnapshot.getValue().toString());
+                        textView.setText("RM"+ String.valueOf(balance));
                     }
 
                     @Override

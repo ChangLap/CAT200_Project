@@ -54,12 +54,12 @@ public class Payment extends AppCompatActivity {
                     costReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (int i = 0; i < max; i++) {
+                            for (int i = 0; i <= max; i++) {
                                 bookingPlate = dataSnapshot.child("" + i).child("carPlate").getValue().toString();
                                 flag = Boolean.valueOf(dataSnapshot.child("" + i).child("flag").getValue().toString());
                                 if (carPlate.equals(bookingPlate) && !flag){
                                     flag = true;
-                                    updatewallet.child("Booking Details").child(""+i).child("flag").setValue(flag);
+                                    updatewallet.child("Booking History").child(""+i).child("flag").setValue(flag);
                                 }
 
                             }
@@ -80,9 +80,6 @@ public class Payment extends AppCompatActivity {
                     Intent change = new Intent(Payment.this, PaymentFail.class);
                     startActivity(change);
                 }
-
-                //Toast.makeText(Payment.this, current + " " + carPlate + " " + balance+ " " + cost, Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -118,14 +115,13 @@ public class Payment extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists())
                             max = dataSnapshot.getChildrenCount();
-
+                        Toast.makeText(Payment.this,"max: "+ max , Toast.LENGTH_LONG).show();
                         for (int i = 0; i < max; i++) {
                             bookingPlate = dataSnapshot.child("" + i).child("carPlate").getValue().toString();
                             flag = Boolean.valueOf(dataSnapshot.child("" + i).child("flag").getValue().toString());
                             if (carPlate.equals(bookingPlate) && !flag)
                                 cost = cost + Integer.parseInt(dataSnapshot.child("" + i).child("charge").getValue().toString());
-                            if (i==max)
-                                break;
+
                         }
                         amountdue = (TextView) findViewById(R.id.tvAmountDue);
                         amountdue.setText("RM"+ String.valueOf(cost));
@@ -138,10 +134,6 @@ public class Payment extends AppCompatActivity {
                     }
 
                 });
-
-//                Toast.makeText(Payment.this, "" + current + " " + carPlate + " " + bookingPlate + " " + cost, Toast.LENGTH_LONG).show();
-
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

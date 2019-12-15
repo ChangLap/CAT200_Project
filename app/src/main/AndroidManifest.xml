@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".bookingDone"></activity>
+        <activity android:name=".Login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".bookingDone" />
         <activity android:name=".TopUp" />
         <activity android:name=".QRCode" />
         <activity android:name=".BookingRecord" />
@@ -31,7 +33,7 @@
         <activity android:name=".mainMenu" />
         <activity android:name=".Register" />
         <activity
-            android:name=".Login"
+            android:name=".FirstPage"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

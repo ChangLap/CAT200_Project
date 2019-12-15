@@ -97,11 +97,21 @@
         android:id="@+id/twEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/button_curvedark"
+
+
+
         android:fontFamily="@font/roundpop"
         android:text="END"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.712"

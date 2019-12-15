@@ -20,13 +20,14 @@ public class PaymentFail extends AppCompatActivity {
     TextView showbalance;
     DatabaseReference databaseReference;
     Button to_topup;
+    String userNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_fail);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user0");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Login Details").child("user");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
